@@ -40,8 +40,8 @@ class Menu():
                     print("Hasla nie sa takie same\n")
                     password = input("Podaj haslo: ")
                     check_password = input("Powtorz haslo: ")
-                sign = SignIn
-                sign.sign_in(username,password)
+                sign = SignIn()
+                sign.sign_in(username, password)
 
 
             elif next == "Najwieksze wygrane":
