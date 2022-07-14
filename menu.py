@@ -1,4 +1,5 @@
 from Black_Jack import BlackJack
+from sign_in import SignIn
 
 class Menu():
     """Klasa wyswietlajaca i pozwalajaca zarzadzac menu aplikacji"""
@@ -32,7 +33,16 @@ class Menu():
                         print("Baccarat")
 
             elif next == "Rejstracja":
-                print("rejstracja")
+                username = input("Podaj nazwe urzytkownika: ")
+                password = input("Podaj haslo: ")
+                check_password = input("Powtorz haslo: ")
+                while password != check_password:
+                    print("Hasla nie sa takie same\n")
+                    password = input("Podaj haslo: ")
+                    check_password = input("Powtorz haslo: ")
+                sign = SignIn
+                sign.sign_in(username,password)
+
 
             elif next == "Najwieksze wygrane":
                 print("20 najlepszych wynikow")
