@@ -54,8 +54,6 @@ class BlackJack:
         sum_cards_player = self.sum_cards(self.player_cards)
 
         print(f"Twoje karty to {self.player_symbol_cards} ich suma wynosi: {sum_cards_player}")
-        print(len(self.player_cards))
-        print("ddddddd",self.croupier_cards)
         print(f"Karta krupiera  to {self.croupier_symbol_cards[0]}  ")
 
     def sum_cards(self, cards):
@@ -117,35 +115,32 @@ class BlackJack:
 
     def choose_action(self, ):
         # wybieramy nasz dalszy ruch dobrac karte , brak ruchu, podwojenie lub rozdwojenie
-        if self.croupier_cards[0] == "A":                                                                               #niedkonczone
-            print("Czy chcesz ubezpieczyc? ")
-        else:
-            while True:
-                response = input("Wybierz dalszy ruch: \nH -Hit\nS - Stand\nD - Double\nSp - Split\n")
-                if response == "H":
-                    self.hit()
+        while True:
+            response = input("Wybierz dalszy ruch: \nH -Hit\nS - Stand\nD - Double\nSp - Split\n")
+            if response == "H":
+                self.hit()
 
-                    if self.sum_cards(self.player_cards) > 21:
-                        self.croupier_hit(self.croupier_cards)
-                        result_of_compere = self.compare()
-                        self.result(result_of_compere)
-                        break
-
-                    if self.sum_cards(self.player_cards) == 21:
-                        result_of_compere = self.compare()
-                        if result_of_compere == 0:
-                            self.print_croupier()
-                        self.result(result_of_compere)
-                        break
-
-                elif response == "S":
+                if self.sum_cards(self.player_cards) > 21:
                     self.croupier_hit(self.croupier_cards)
                     result_of_compere = self.compare()
                     self.result(result_of_compere)
                     break
 
-                elif response == "D":
-                    self.bet_multiplier *= 2
+                if self.sum_cards(self.player_cards) == 21:
+                    result_of_compere = self.compare()
+                    if result_of_compere == 0:
+                        self.print_croupier()
+                    self.result(result_of_compere)
+                    break
+
+            elif response == "S":
+                self.croupier_hit(self.croupier_cards)
+                result_of_compere = self.compare()
+                self.result(result_of_compere)
+                break
+
+            elif response == "D":
+                self.bet_multiplier *= 2
 
 
     def new_game(self):
@@ -159,15 +154,13 @@ class BlackJack:
         new_game = "t"
         i = 1
         while new_game == "t":
-            print(f"i przed while= {i}")
             if i > 1:
                 self.new_game()
                 self.create_new_first_hand()
             self.show_hand()
             self.choose_action()
             i = i+1
-            print(f"i po dodaniu={i}")
-            new_game = input("Czy chcesz zagrac jeszcze raz? t/n")
+            new_game = input("Czy chcesz zagrac jeszcze raz? t/n\n")
             if new_game == "n":
                 i = 1
 
