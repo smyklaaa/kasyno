@@ -1,6 +1,7 @@
 import random
 """Klasa umożliwiająca rogrywke pokerowej gry Black Jack """
 
+
 class BlackJack:
 
     def __init__(self):
