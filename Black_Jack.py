@@ -161,6 +161,8 @@ class BlackJack:
             self.choose_action()
             i = i+1
             new_game = input("Czy chcesz zagrac jeszcze raz? t/n\n")
+            while new_game not in ["t","n"]:
+                new_game = input("nie rozumiem, czy chcesz zagrac jeszcze raz? t/n\n")
             if new_game == "n":
                 i = 1
 
