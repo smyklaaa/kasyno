@@ -12,42 +12,46 @@ class Menu:
     def main_menu(self):
         """wyswietlanie menu """
 
-        next = input("Logowanie\nRejstracja\nNajwieksze wygrane\n")
         while True:
-            if next == "Logowanie":
-                access_granted = self.access_granted()
+            next = input("Logowanie\nRejstracja\nNajwieksze wygrane\n")
+            while True:
+                if next == "Logowanie":
+                    access_granted = self.access_granted()
 
-                if access_granted:
-                    next_log = input("Doładuj konto\nGraj\n")
+                    if access_granted:
+                        next_log = input("Doładuj konto\nGraj\n")
 
-                    if next_log == "Doładuj konto":
-                        print("doladuj")
+                        if next_log == "Doładuj konto":
+                            print("doladuj")
 
-                    elif next_log == "Graj":
-                        next_gry = input("Black Jack\nRuletka\nBaccarat\n")
+                        elif next_log == "Graj":
+                            next_gry = input("Black Jack\nRuletka\nBaccarat\n")
 
-                        if next_gry == "Black Jack":
-                            game = BlackJack()
-                            game.main()
+                            if next_gry == "Black Jack":
+                                game = BlackJack()
+                                game.main()
 
-                        elif next_gry == "Ruletka":
-                            print("ru.etka")
+                            elif next_gry == "Ruletka":
+                                print("ru.etka")
 
-                        elif next_gry == "Baccarat":
-                            print("Baccarat")
+                            elif next_gry == "Baccarat":
+                                print("Baccarat")
 
-            elif next == "Rejstracja":
-                sign = SignIn()
-                username = input("Podaj nazwe uzytkownika: ")
-                password = self.check_password()
-                account_value = self.check_account_values()
-                sign.sign_in(username, password, account_value)
+                elif next == "Rejstracja":
+                    sign = SignIn()
+                    username = input("Podaj nazwe uzytkownika: ")
+                    password = self.check_password()
+                    account_value = self.check_account_values()
+                    sign.sign_in(username, password, account_value)
+                    break
 
 
-            elif next == "Najwieksze wygrane":
-                print("20 najlepszych wynikow")
+                elif next == "Najwieksze wygrane":
+                    print("20 najlepszych wynikow")
 
     def check_password(self):
+        """ metoda pobiera haslo od uzytkownika i sprawdza czy nie wystopil blad przy wpisywaniu,po czym je zwraca"""
+
         password = input("Podaj haslo: ")
         check_password = input("Powtorz haslo: ")
         while password != check_password:
@@ -57,6 +61,8 @@ class Menu:
         return password
 
     def check_account_values(self):
+        """metoda sprawdza czy wartosc konta ktora podaje uzytkownik jest nieujemna liczba"""
+
         while True:
             try:
                 account_value = input("Podaj ile chcesz wplacic na swoje konto: ")
@@ -73,6 +79,8 @@ class Menu:
 
 
     def check_login(self, list_current_users):
+        """ metoda pobierajaca nazwe uzytkownika i haslo i sprawdzajaca czy intnieje w bazie danych """
+
         username = input("Podaj nazwe uzytkownika: ")
         password = input("Podaj haslo: ")
         for i in list_current_users:
@@ -81,6 +89,8 @@ class Menu:
         return False
 
     def access_granted(self):
+        """ metoda obslugujaca proces logowania sie , przyznaje dostep do konta po poprawnym zalogowaniu """
+
         log_in = LogIn()
         list_current_users = log_in.list_of_current_users()
         access_granted = self.check_login(list_current_users)

@@ -10,7 +10,7 @@ class SignIn:
         self.users = open("user_list","a+")
 
     def sign_in(self, username, password, account_value):
-        """funkcja zapisujaca uzytkownika w bazie danych sprawdzajac czy nazwa jest unikatowa"""
+        """metoda zapisujaca uzytkownika w bazie danych sprawdzajac czy nazwa jest unikatowa"""
 
         db = DataBase(getenv('DB_NAME'))
         db.create_table('''CREATE TABLE IF NOT EXISTS log_data 
