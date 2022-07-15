@@ -34,18 +34,22 @@ class Menu:
 
             elif next == "Rejstracja":
                 username = input("Podaj nazwe urzytkownika: ")
-                password = input("Podaj haslo: ")
-                check_password = input("Powtorz haslo: ")
-                while password != check_password:
-                    print("Hasla nie sa takie same\n")
-                    password = input("Podaj haslo: ")
-                    check_password = input("Powtorz haslo: ")
+                password = self.check_password()
                 sign = SignIn()
                 sign.sign_in(username, password)
 
 
             elif next == "Najwieksze wygrane":
                 print("20 najlepszych wynikow")
+
+    def check_password(self):
+        password = input("Podaj haslo: ")
+        check_password = input("Powtorz haslo: ")
+        while password != check_password:
+            print("Hasla nie sa takie same\n")
+            password = input("Podaj haslo: ")
+            check_password = input("Powtorz haslo: ")
+        return password
 
 
 gra = Menu()
