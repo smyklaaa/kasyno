@@ -1,13 +1,25 @@
-class SignIn():
-    """Klasa pozwalajaca na zarejstrowanie urzytkownika"""
+import sqlite3
+from connection_data_base import DataBase
+from os import getenv
+
+
+class SignIn:
+    """Klasa pozwalajaca na zarejstrowanie użytkownika"""
 
     def __init__(self):
-        self.users = open("user_list","w")
+        self.users = open("user_list","a+")
 
-    def sign_in(self,username,password):
-        while username in self.users:
-            username = input("Wybrana nazwa urzytkownika jest zajeta, wybierz inna: ")
-        self.users.write(f"{username},{password}")
+    def sign_in(self, username, password):
 
-    def check_duplicated(self):
-        pass
+        db = DataBase(getenv('DB_NAME'))
+        db.create_table('''CREATE TABLE IF NOT EXISTS log_data (username TEXT PRIMARY KEY, password TEXT)''')
+        log_data = [username, password]
+        name = True
+        while name:
+            try:
+                db.insert_data(log_data)
+                name = False
+            except sqlite3.IntegrityError:
+                new_username = input("Nazwa uzytkownika jest zajeta, podaj inna nazwe:")
+                log_data = [new_username, password]
+
