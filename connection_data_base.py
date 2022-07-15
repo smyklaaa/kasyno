@@ -16,6 +16,11 @@ class DataBase:
         self.cursor.execute(table)
         self.connection.commit()
 
-    def insert_data(self,sign_data):
+    def insert_data(self, sign_data):
         self.cursor.execute('''INSERT INTO log_data VALUES(?,?)''', sign_data)
         self.connection.commit()
+
+    def check_users(self):
+        self.cursor.execute('''SELECT username,password FROM log_data''')
+        users_data = self.cursor.fetchall()
+        return users_data

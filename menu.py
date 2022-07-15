@@ -1,5 +1,6 @@
 from Black_Jack import BlackJack
 from sign_in import SignIn
+from log_in import LogIn
 
 class Menu:
     """Klasa wyswietlajaca i pozwalajaca zarzadzac menu aplikacji"""
@@ -14,6 +15,8 @@ class Menu:
         next = input("Logowanie\nRejstracja\nNajwieksze wygrane\n")
         while True:
             if next == "Logowanie":
+                log_in = LogIn()
+                log_in.list_of_current_users()
                 next_log = input("Doładuj konto\nGraj\n")
 
                 if next_log == "Doładuj konto":
