@@ -15,28 +15,29 @@ class Menu:
         next = input("Logowanie\nRejstracja\nNajwieksze wygrane\n")
         while True:
             if next == "Logowanie":
-                log_in = LogIn()
-                log_in.list_of_current_users()
-                next_log = input("Doładuj konto\nGraj\n")
+                access_granted = self.access_granted()
 
-                if next_log == "Doładuj konto":
-                    print("doladuj")
+                if access_granted:
+                    next_log = input("Doładuj konto\nGraj\n")
 
-                elif next_log == "Graj":
-                    next_gry = input("Black Jack\nRuletka\nBaccarat\n")
+                    if next_log == "Doładuj konto":
+                        print("doladuj")
 
-                    if next_gry == "Black Jack":
-                        game = BlackJack()
-                        game.main()
+                    elif next_log == "Graj":
+                        next_gry = input("Black Jack\nRuletka\nBaccarat\n")
 
-                    elif next_gry == "Ruletka":
-                        print("ru.etka")
+                        if next_gry == "Black Jack":
+                            game = BlackJack()
+                            game.main()
 
-                    elif next_gry == "Baccarat":
-                        print("Baccarat")
+                        elif next_gry == "Ruletka":
+                            print("ru.etka")
+
+                        elif next_gry == "Baccarat":
+                            print("Baccarat")
 
             elif next == "Rejstracja":
-                username = input("Podaj nazwe urzytkownika: ")
+                username = input("Podaj nazwe uzytkownika: ")
                 password = self.check_password()
                 sign = SignIn()
                 sign.sign_in(username, password)
@@ -53,6 +54,24 @@ class Menu:
             password = input("Podaj haslo: ")
             check_password = input("Powtorz haslo: ")
         return password
+
+    def check_login(self, list_current_users):
+        username = input("Podaj nazwe uzytkownika: ")
+        password = input("Podaj haslo: ")
+        for i in list_current_users:
+            if i[0] == username and i[1] == password:
+                return True
+        return False
+
+    def access_granted(self):
+        log_in = LogIn()
+        list_current_users = log_in.list_of_current_users()
+        access_granted = self.check_login(list_current_users)
+        while not access_granted:
+            print("Niepoprawna proba zalogowania sprobuj jeszcze raz")
+            access_granted = self.check_login(list_current_users)
+        return access_granted
+
 
 
 gra = Menu()
