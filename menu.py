@@ -1,7 +1,7 @@
 from Black_Jack import BlackJack
 from sign_in import SignIn
 
-class Menu():
+class Menu:
     """Klasa wyswietlajaca i pozwalajaca zarzadzac menu aplikacji"""
 
     def __init__(self):
