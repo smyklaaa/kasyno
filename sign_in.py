@@ -9,12 +9,16 @@ class SignIn:
     def __init__(self):
         self.users = open("user_list","a+")
 
-    def sign_in(self, username, password):
+    def sign_in(self, username, password, account_value):
         """funkcja zapisujaca uzytkownika w bazie danych sprawdzajac czy nazwa jest unikatowa"""
 
         db = DataBase(getenv('DB_NAME'))
-        db.create_table('''CREATE TABLE IF NOT EXISTS log_data (username TEXT PRIMARY KEY, password TEXT)''')
-        log_data = [username, password]
+        db.create_table('''CREATE TABLE IF NOT EXISTS log_data 
+        (username TEXT PRIMARY KEY, 
+        password TEXT, 
+        account INT)
+        ''')
+        log_data = [username, password, account_value]
         name = True
         while name:
             try:
@@ -22,5 +26,5 @@ class SignIn:
                 name = False
             except sqlite3.IntegrityError:
                 new_username = input("Nazwa uzytkownika jest zajeta, podaj inna nazwe:")
-                log_data = [new_username, password]
+                log_data = [new_username, password, account_value]
 

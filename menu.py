@@ -37,10 +37,11 @@ class Menu:
                             print("Baccarat")
 
             elif next == "Rejstracja":
+                sign = SignIn()
                 username = input("Podaj nazwe uzytkownika: ")
                 password = self.check_password()
-                sign = SignIn()
-                sign.sign_in(username, password)
+                account_value = self.check_account_values()
+                sign.sign_in(username, password, account_value)
 
 
             elif next == "Najwieksze wygrane":
@@ -54,6 +55,22 @@ class Menu:
             password = input("Podaj haslo: ")
             check_password = input("Powtorz haslo: ")
         return password
+
+    def check_account_values(self):
+        while True:
+            try:
+                account_value = input("Podaj ile chcesz wplacic na swoje konto: ")
+                account_value = int(account_value)
+                break
+
+            except ValueError:
+                print("Podales wartosc tekstowa zamiast liczby")
+
+
+        while int(account_value) < 0:
+            account_value = input("Wartosc konta nie moze byc ujemna, podaj prawidlowa wartosc: ")
+        return account_value
+
 
     def check_login(self, list_current_users):
         username = input("Podaj nazwe uzytkownika: ")

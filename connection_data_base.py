@@ -1,5 +1,4 @@
 import sqlite3
-from os import getenv
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -17,7 +16,7 @@ class DataBase:
         self.connection.commit()
 
     def insert_data(self, sign_data):
-        self.cursor.execute('''INSERT INTO log_data VALUES(?,?)''', sign_data)
+        self.cursor.execute('''INSERT INTO log_data VALUES(?,?,?)''', sign_data)
         self.connection.commit()
 
     def check_users(self):
