@@ -1,12 +1,14 @@
 from Black_Jack import BlackJack
 from sign_in import SignIn
 from log_in import LogIn
+from wallet import Wallet
 
 class Menu:
     """Klasa wyswietlajaca i pozwalajaca zarzadzac menu aplikacji"""
 
     def __init__(self):
         self.main_menu()
+        self.current_login_username = ""
 
 
     def main_menu(self):
@@ -19,10 +21,14 @@ class Menu:
                     access_granted = self.access_granted()
 
                     if access_granted:
-                        next_log = input("Doładuj konto\nGraj\n")
+                        next_log = input("Stan konta\nDoładuj konto\nGraj\n")
 
                         if next_log == "Doładuj konto":
                             print("doladuj")
+
+                        elif next_log == "Stan konta":
+                            account_balance = Wallet()
+                            account_balance.check_account(self.current_login_username)
 
                         elif next_log == "Graj":
                             next_gry = input("Black Jack\nRuletka\nBaccarat\n")
@@ -85,6 +91,7 @@ class Menu:
         password = input("Podaj haslo: ")
         for i in list_current_users:
             if i[0] == username and i[1] == password:
+                self.current_login_username = username
                 return True
         return False
 

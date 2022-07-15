@@ -29,3 +29,10 @@ class DataBase:
         self.cursor.execute('''SELECT username,password FROM log_data''')
         users_data = self.cursor.fetchall()
         return users_data
+
+    def check_account(self):
+        """metoda zwracajaca nazwe uzytkownika i wraz ze stanem konta """
+
+        self.cursor.execute('''SELECT username,account FROM log_data''')
+        users_data = self.cursor.fetchall()
+        return users_data
