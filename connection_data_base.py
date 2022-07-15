@@ -17,5 +17,5 @@ class DataBase:
         self.connection.commit()
 
     def insert_data(self,sign_data):
-        self.cursor.execute('''INSERT INTO log_data VALUES(?,?)''',sign_data)
+        self.cursor.execute('''INSERT INTO log_data VALUES(?,?)''', sign_data)
         self.connection.commit()
