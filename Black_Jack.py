@@ -1,9 +1,11 @@
 from wallet import Wallet
+from connection_data_base import DataBase
+from os import getenv
 import random
-"""Klasa umożliwiająca rogrywke pokerowej gry Black Jack """
 
 
 class BlackJack:
+    """Klasa umożliwiająca rogrywke pokerowej gry Black Jack """
 
     def __init__(self, username):
         self.cards = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", ]
@@ -12,7 +14,8 @@ class BlackJack:
         self.croupier_symbol_cards = self.croupier_cards
         self.player_symbol_cards = self.player_cards
         self.bet_multiplier = 2
-        self.account_balance = Wallet().return_account_balance(username)
+        self.current_username = username
+        self.account_balance = Wallet().return_account_balance(self.current_username)
 
 
     def draw_card(self):
@@ -212,5 +215,7 @@ class BlackJack:
                 new_game = input("nie rozumiem, czy chcesz zagrac jeszcze raz? t/n\n")
             if new_game == "n":
                 i = 1
+                db = DataBase(getenv('DB_NAME'))
+                db.update_account_balance(self.account_balance,self.current_username)
 
 
