@@ -24,7 +24,8 @@ class Menu:
                         next_log = input("Stan konta\nDoładuj konto\nGraj\n")
 
                         if next_log == "Doładuj konto":
-                            print("doladuj")
+                            new_account_balance = Wallet()
+                            new_account_balance.increase_account(self.current_login_username)
 
                         elif next_log == "Stan konta":
                             account_balance = Wallet()
