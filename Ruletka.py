@@ -30,7 +30,59 @@ class Ruletka:
 
 
     def main(self):
-        print(self.board)
+        """metoda głowna zarzadzajaca gra"""
+
+        new_game = "t"
+        i = 1
+        while new_game == "t":
+            bet = self.make_bet()
+            print(self.board)
+            self.select_bet()
+
+
+            new_game = input("Czy chcesz zagrac jeszcze raz? t/n\n")
+            while new_game not in ["t","n"]:
+                new_game = input("nie rozumiem, czy chcesz zagrac jeszcze raz? t/n\n")
+            if new_game == "n":
+                i = 1
+                db = DataBase(getenv('DB_NAME'))
+                db.update_account_balance(self.account_balance, self.current_username)
+
+    def check_bet_value(self):
+        """metoda sprawdza czy wartosc zakładu ktorą podaje uzytkownik jest nieujemna liczbą"""
+
+        while True:
+            try:
+                account_value = input("Za jaką kwotę chcesz obstawic zakład? : ")
+                account_value = int(account_value)
+                break
+
+            except ValueError:
+                print("Podales wartosc tekstowa zamiast liczby")
+
+        while int(account_value) < 0:
+            account_value = input("Wartosc zakładu nie moze byc ujemna, podaj prawidlowa wartosc: ")
+        return int(account_value)
+
+    def make_bet(self):
+        """funkcja tworzaca zakład """
+
+        bet = self.check_bet_value()
+        while bet > self.account_balance:
+            print("Nie masz wystarczajaca środków na koncie")
+            bet = self.check_bet_value()
+
+        return bet
+
+    def select_bet(self):
+        """metoda przyjmujaca zaklad i sprawdzajaca jego wynik"""
+
+        numbers = input("Wybierz numer przy obcji na ktora obstawiasz:\n(1)Czerwone, (2)Czarne , "
+                        "(3)Parzyste, (4)Nieparzyste, "
+                        "(5)Kolumna1, (6)Kolumna2, (7)Kolumna3, (8)Tuzin1, (9)Tuzin2, (10)Tuzin3, "
+                        "(11)Pierwsza polowa<1-18>, (12)Druga polowa<19-36>, (13)Pojedynczy numer\n")
+
+
 
 
 gra = Ruletka("janek")
