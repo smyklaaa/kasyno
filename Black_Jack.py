@@ -1,25 +1,27 @@
+from wallet import Wallet
 import random
 """Klasa umożliwiająca rogrywke pokerowej gry Black Jack """
 
 
 class BlackJack:
 
-    def __init__(self):
+    def __init__(self, username):
         self.cards = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", ]
         self.croupier_cards = self.first_hand()
         self.player_cards = self.first_hand()
         self.croupier_symbol_cards = self.croupier_cards
         self.player_symbol_cards = self.player_cards
         self.bet_multiplier = 2
+        self.account_balance = Wallet().return_account_balance(username)
 
 
     def draw_card(self):
-        # funkcja dobierajaca karte
+        """metoda dobierajaca karte"""
 
         return random.choice(self.cards)
 
     def first_hand(self):
-        # funkcja wybierajava pierwsze katyt gracza i krupiera
+        """metoda wybierajava pierwsze katyt gracza i krupiera"""
 
         # return map(self.draw_card, range(2))   #funkcje anonimowe poczytaj
 
@@ -35,7 +37,7 @@ class BlackJack:
         self.player_symbol_cards = self.player_cards
 
     def check_figure(self, cards, ran):
-        # funkcja sprawdzajaca czy wysosowano karte j q k lub a oraz zamienai je na liczby
+        """metoda sprawdzajaca czy wysosowano karte j q k lub a oraz zamienai je na liczby"""
 
         for i in range(ran):
             if cards[i] in ["J", "Q", "K"]:
@@ -45,26 +47,31 @@ class BlackJack:
         return cards
 
     def check_as(self, amount, cards):
-        #funkcja ktora po przekroczeniu 21 sprawdza czy w rece gracza jest as, jezeli tak zamienia jego wartosc na 1
+        """ metoda ktora po przekroczeniu 21 sprawdza czy w rece gracza jest as,
+            jezeli tak zamienia jego wartosc na 1"""
+
         if amount > 21 and 11 in cards:
             amount -= 10
         return amount
 
     def show_hand(self, ):
-        # funkcja wybierajaca pokazujaca karty
+        """metoda wybierajaca pokazujaca karty"""
+
         sum_cards_player = self.sum_cards(self.player_cards)
 
         print(f"Twoje karty to {self.player_symbol_cards} ich suma wynosi: {sum_cards_player}")
         print(f"Karta krupiera  to {self.croupier_symbol_cards[0]}  ")
 
     def sum_cards(self, cards):
-        # funkcja zwracajaca sume reki gracza/ komputera
+        """metoda zwracajaca sume reki gracza/ komputera"""
+
         num_cards = self.check_figure(cards, len(cards))
         sum_cards = self.check_as(sum(num_cards), num_cards)
         return sum_cards
 
     def compare(self):
-        # porownanie wynikow
+        """porownanie wynikow"""
+
         player_score = self.sum_cards(self.player_cards)
         croupier_score = self.sum_cards(self.croupier_cards)
 
@@ -86,19 +93,28 @@ class BlackJack:
         else:
             return -1
 
-    def result(self, result):
-        # sprawdz switch/match
+    def result(self, result, bet):
+        """sprawdz switch/match"""
+
         if result == 0:
-            print("Remis!")
+            print(f"Remis!\nTwój stan konta wynosi: {self.account_balance}")
+
         elif result == 2:
-            print("Black Jack! Wygrałeś!")
+            bet *= self.bet_multiplier
+            self.account_balance += bet
+            print(f"Black Jack! Wygrałeś!\nTwój stan konta wynosi: {self.account_balance}")
+
         elif result == -1:
-            print("Przegrales!")
+            self.account_balance -= bet
+            print(f"Przegrales!\nTwój stan konta wynosi: {self.account_balance}")
+
         elif result == 1:
-            print("Wygrales!")
+            bet *= self.bet_multiplier
+            self.account_balance += bet
+            print(f"Wygrałeś!\nTwój stan konta wynosi: {self.account_balance}")
 
     def croupier_hit(self, cards):
-        #dobranie karty przez kuriera
+        """dobranie karty przez kuriera"""
 
         self.print_croupier()
         while self.sum_cards(cards) < 17:
@@ -106,60 +122,90 @@ class BlackJack:
             self.print_croupier()
 
     def print_croupier(self):
-        #wyswietlanie kart krupiera
+        """wyswietlanie kart krupiera"""
+
         print(f"Karty krupiera : {self.croupier_cards} ich suma: {self.sum_cards(self.croupier_cards)}")
 
     def hit(self, ):
-        #dobranie kart przez gracza
+        """dobranie kart przez gracza"""
         self.player_cards.append(self.draw_card())
         print(f"Twoje karty po dobraniu: {self.player_cards} ich suma: {self.sum_cards(self.player_cards)} ")
 
-    def choose_action(self, ):
-        # wybieramy nasz dalszy ruch dobrac karte , brak ruchu, podwojenie lub rozdwojenie
+    def choose_action(self, bet):
+        """wybieramy nasz dalszy ruch dobrac karte , brak ruchu, podwojenie lub rozdwojenie"""
+
         while True:
-            response = input("Wybierz dalszy ruch: \nH -Hit\nS - Stand\nD - Double\nSp - Split\n")
+            response = input("Wybierz dalszy ruch: \nH -Hit\nS - Stand\nD - Double\n")
             if response == "H":
                 self.hit()
 
                 if self.sum_cards(self.player_cards) > 21:
                     self.croupier_hit(self.croupier_cards)
                     result_of_compere = self.compare()
-                    self.result(result_of_compere)
+                    self.result(result_of_compere, bet)
                     break
 
                 if self.sum_cards(self.player_cards) == 21:
                     result_of_compere = self.compare()
                     if result_of_compere == 0:
                         self.print_croupier()
-                    self.result(result_of_compere)
+                    self.result(result_of_compere, bet)
                     break
 
             elif response == "S":
                 self.croupier_hit(self.croupier_cards)
                 result_of_compere = self.compare()
-                self.result(result_of_compere)
+                self.result(result_of_compere, bet)
                 break
 
             elif response == "D":
                 self.bet_multiplier *= 2
 
-
     def new_game(self):
+        """metoda zerujaca karty krupiera i gracza"""
+
         self.croupier_cards = []
         self.player_cards = []
 
+    def check_bet_value(self):
+        """metoda sprawdza czy wartosc zakładu ktorą podaje uzytkownik jest nieujemna liczbą"""
+
+        while True:
+            try:
+                account_value = input("Za jaką kwotę chcesz obstawic zakład? : ")
+                account_value = int(account_value)
+                break
+
+            except ValueError:
+                print("Podales wartosc tekstowa zamiast liczby")
+
+        while int(account_value) < 0:
+            account_value = input("Wartosc zakładu nie moze byc ujemna, podaj prawidlowa wartosc: ")
+        return int(account_value)
+
+    def make_bet(self):
+        """funkcja tworzaca zakład """
+
+        bet = self.check_bet_value()
+        while bet > self.account_balance:
+            print("Nie masz wystarczajaca środków na koncie")
+            bet = self.check_bet_value()
+
+        return bet
+
 
     def main(self):
-        # funkcja głowna zarzadzajaca gra
+        """metoda głowna zarzadzajaca gra"""
 
         new_game = "t"
         i = 1
         while new_game == "t":
+            bet = self.make_bet()
             if i > 1:
                 self.new_game()
                 self.create_new_first_hand()
             self.show_hand()
-            self.choose_action()
+            self.choose_action(bet)
             i = i+1
             new_game = input("Czy chcesz zagrac jeszcze raz? t/n\n")
             while new_game not in ["t","n"]:

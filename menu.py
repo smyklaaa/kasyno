@@ -35,7 +35,7 @@ class Menu:
                             next_gry = input("Black Jack\nRuletka\nBaccarat\n")
 
                             if next_gry == "Black Jack":
-                                game = BlackJack()
+                                game = BlackJack(self.current_login_username)
                                 game.main()
 
                             elif next_gry == "Ruletka":

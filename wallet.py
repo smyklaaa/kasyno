@@ -11,13 +11,17 @@ class Wallet:
         self.db = DataBase(getenv('DB_NAME'))
 
     def check_account(self, username):
+        """metoda zwracjajaca stan konta dla zalogowanego uzytkownika """
+
         users_data = self.db.check_account()
-        for i in users_data:
-            if username == i[0]:
-                print(f"Twoj stan konta wynosi: {i[1]} ")
+        for user in users_data:
+            if username == user[0]:
+                print(f"Twoj stan konta wynosi: {user[1]} ")
                 break
 
     def increase_account(self, username):
+        """metoda pozwalajaca doładować konto zalogowanemu użytkownikowi """
+
         users_data = self.db.check_account()
         for user in users_data:
             if username == user[0]:
@@ -29,7 +33,7 @@ class Wallet:
 
 
     def check_account_values(self):
-        """metoda sprawdza czy wartosc konta ktora podaje uzytkownik jest nieujemna liczba"""
+        """metoda sprawdza czy wartosc konta ktorą podaje uzytkownik jest nieujemna liczbą"""
 
         while True:
             try:
@@ -43,3 +47,11 @@ class Wallet:
         while int(account_value) < 0:
             account_value = input("Wartosc konta nie moze byc ujemna, podaj prawidlowa wartosc: ")
         return account_value
+
+    def return_account_balance(self, username):
+        """metoda zwracajaca wartosc konta zalogowanego uzytkownika jako intiger"""
+
+        users_data = self.db.check_account()
+        for user in users_data:
+            if username == user[0]:
+                return int(user[1])
