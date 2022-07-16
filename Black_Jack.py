@@ -139,6 +139,9 @@ class BlackJack:
 
         while True:
             response = input("Wybierz dalszy ruch: \nH -Hit\nS - Stand\nD - Double\n")
+            if response == "D":
+                self.bet_multiplier = 4
+
             if response == "H":
                 self.hit()
 
@@ -161,8 +164,6 @@ class BlackJack:
                 self.result(result_of_compere, bet)
                 break
 
-            elif response == "D":
-                self.bet_multiplier *= 2
 
     def new_game(self):
         """metoda zerujaca karty krupiera i gracza"""
