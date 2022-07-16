@@ -16,33 +16,47 @@ class Menu:
 
         while True:
             next = input("Logowanie\nRejstracja\nNajwieksze wygrane\n")
+            while next not in ["Logowanie","Rejstracja","Najwieksze wygrane"]:
+                next = input("Logowanie\nRejstracja\nNajwieksze wygrane\n")
+            log_out = False
             while True:
                 if next == "Logowanie":
+                    if log_out:
+                        break
                     access_granted = self.access_granted()
 
-                    if access_granted:
-                        next_log = input("Stan konta\nDoładuj konto\nGraj\n")
+                    while True:
+                        if access_granted:
+                            next_log = input("Stan konta\nDoładuj konto\nGraj\nWyloguj sie\n")
 
-                        if next_log == "Doładuj konto":
-                            new_account_balance = Wallet()
-                            new_account_balance.increase_account(self.current_login_username)
+                            if next_log == "Doładuj konto":
+                                new_account_balance = Wallet()
+                                new_account_balance.increase_account(self.current_login_username)
 
-                        elif next_log == "Stan konta":
-                            account_balance = Wallet()
-                            account_balance.check_account(self.current_login_username)
+                            elif next_log == "Wyloguj sie":
+                                log_out = True
+                                break
 
-                        elif next_log == "Graj":
-                            next_gry = input("Black Jack\nRuletka\nBaccarat\n")
+                            elif next_log == "Stan konta":
+                                account_balance = Wallet()
+                                account_balance.check_account(self.current_login_username)
 
-                            if next_gry == "Black Jack":
-                                game = BlackJack(self.current_login_username)
-                                game.main()
+                            elif next_log == "Graj":
+                                while True:
+                                    next_gry = input("Black Jack\nRuletka\nBaccarat\nCofnij\n")
 
-                            elif next_gry == "Ruletka":
-                                print("ru.etka")
+                                    if next_gry == "Black Jack":
+                                        game = BlackJack(self.current_login_username)
+                                        game.main()
 
-                            elif next_gry == "Baccarat":
-                                print("Baccarat")
+                                    elif next_gry == "Ruletka":
+                                        print("ru.etka")
+
+                                    elif next_gry == "Baccarat":
+                                        print("Baccarat")
+
+                                    elif next_gry == "Cofnij":
+                                        break
 
                 elif next == "Rejstracja":
                     sign = SignIn()
