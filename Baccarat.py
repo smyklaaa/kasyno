@@ -65,7 +65,6 @@ class Baccarat(BlackJack):
             check = False
 
         elif sum_cards_player == 9 and sum_cards_player > sum_cards_croupier:
-            bet *= self.bet_multiplier
             self.account_balance += bet
             print(f"Wygrałeś!\nTwój stan konta wynosi: {self.account_balance}")
             check = False
@@ -141,7 +140,6 @@ class Baccarat(BlackJack):
             print(f"Przegrales!\nTwój stan konta wynosi: {self.account_balance}")
 
         elif result == 1:
-            bet *= self.bet_multiplier
             self.account_balance += bet
             print(f"Wygrałeś!\nTwój stan konta wynosi: {self.account_balance}")
 

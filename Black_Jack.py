@@ -13,7 +13,7 @@ class BlackJack:
         self.player_cards = self.first_hand()
         self.croupier_symbol_cards = self.croupier_cards
         self.player_symbol_cards = self.player_cards
-        self.bet_multiplier = 2
+        self.bet_multiplier = 1
         self.current_username = username
         self.account_balance = Wallet().return_account_balance(self.current_username)
 
@@ -140,7 +140,7 @@ class BlackJack:
         while True:
             response = input("Wybierz dalszy ruch: \nH -Hit\nS - Stand\nD - Double\n")
             if response == "D":
-                self.bet_multiplier = 4
+                self.bet_multiplier = 2
 
             if response == "H":
                 self.hit()
