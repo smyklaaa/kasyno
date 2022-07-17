@@ -4,6 +4,7 @@ from log_in import LogIn
 from wallet import Wallet
 from Baccarat import Baccarat
 from Ruletka import Ruletka
+import os
 
 class Menu:
     """Klasa wyswietlajaca i pozwalajaca zarzadzac menu aplikacji"""
@@ -21,45 +22,56 @@ class Menu:
             while next not in ["Logowanie","Rejstracja","Najwieksze wygrane"]:
                 next = input("Logowanie\nRejstracja\nNajwieksze wygrane\n")
             log_out = False
+            os.system("cls")
             while True:
                 if next == "Logowanie":
                     if log_out:
                         break
                     access_granted = self.access_granted()
+                    os.system("cls")
 
                     while True:
                         if access_granted:
                             next_log = input("Stan konta\nDoładuj konto\nGraj\nWyloguj sie\n")
 
                             if next_log == "Doładuj konto":
+                                os.system("cls")
                                 new_account_balance = Wallet()
                                 new_account_balance.increase_account(self.current_login_username)
 
                             elif next_log == "Wyloguj sie":
                                 log_out = True
+                                os.system("cls")
                                 break
 
                             elif next_log == "Stan konta":
+                                os.system("cls")
                                 account_balance = Wallet()
                                 account_balance.check_account(self.current_login_username)
 
                             elif next_log == "Graj":
+                                os.system("cls")
                                 while True:
                                     next_gry = input("Black Jack\nRuletka\nBaccarat\nCofnij\n")
+                                    os.system("cls")
 
                                     if next_gry == "Black Jack":
                                         game = BlackJack(self.current_login_username)
                                         game.main()
+                                        os.system("cls")
 
                                     elif next_gry == "Ruletka":
                                         game = Ruletka(self.current_login_username)
                                         game.main()
+                                        os.system("cls")
 
                                     elif next_gry == "Baccarat":
                                         game = Baccarat(self.current_login_username)
                                         game.baccarat_main()
+                                        os.system("cls")
 
                                     elif next_gry == "Cofnij":
+                                        os.system("cls")
                                         break
 
                 elif next == "Rejstracja":
@@ -68,6 +80,7 @@ class Menu:
                     password = self.check_password()
                     account_value = self.check_account_values()
                     sign.sign_in(username, password, account_value)
+                    os.system("cls")
                     break
 
 
