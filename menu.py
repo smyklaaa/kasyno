@@ -3,6 +3,7 @@ from sign_in import SignIn
 from log_in import LogIn
 from wallet import Wallet
 from Baccarat import Baccarat
+from Ruletka import Ruletka
 
 class Menu:
     """Klasa wyswietlajaca i pozwalajaca zarzadzac menu aplikacji"""
@@ -51,7 +52,8 @@ class Menu:
                                         game.main()
 
                                     elif next_gry == "Ruletka":
-                                        print("ru.etka")
+                                        game = Ruletka(self.current_login_username)
+                                        game.main()
 
                                     elif next_gry == "Baccarat":
                                         game = Baccarat(self.current_login_username)
