@@ -20,16 +20,16 @@ class Menu:
         """wyswietlanie menu """
 
         while True:
-            what_next = input("Logowanie\nRejstracja\nNajwieksze wygrane\nWylacz\n")
+            print("Do poruszania się po menu używaj cyfr przypisanych do polecen")
+            what_next = input("1.Logowanie\n2.Rejstracja\n3.Najwieksze wygrane\n4.Wylacz\n")
 
-            while what_next not in ["Logowanie", "logowanie","rejstracja","Rejstracja", "najwieksze wygrane",
-                                    "Najwieksze wygrane","najwieksze wygrane","wylacz","Wylacz","wyłącz","Wyłącz"]:
-                what_next = input("Logowanie\nRejstracja\nNajwieksze wygrane\nWylacz\n")
+            while what_next not in ["1", "2", "3", "4"]:
+                what_next = input("1.Logowanie\n2.Rejstracja\n3.Najwieksze wygrane\n4.Wylacz\n")
             log_out = False
 
             os.system("cls")
             while True:
-                if what_next in ["Logowanie", "logowanie"]:
+                if what_next == "1":
                     if log_out:
                         break
                     access_granted = self.access_granted()
@@ -37,49 +37,49 @@ class Menu:
 
                     while True:
                         if access_granted:
-                            next_log = input("Stan konta\nDoładuj konto\nGraj\nWyloguj sie\n")
+                            next_log = input("1.Stan konta\n2.Doładuj konto\n3.Graj\n4.Wyloguj sie\n")
 
-                            if next_log in ["Doładuj konto", "doładuj konto", "Doladuj konto"]:
+                            if next_log == "2":
                                 os.system("cls")
                                 new_account_balance = Wallet()
                                 new_account_balance.increase_account(self.current_login_username)
 
-                            elif next_log in ["Wyloguj sie", "wyloguj sie"]:
+                            elif next_log == "4":
                                 log_out = True
                                 os.system("cls")
                                 break
 
-                            elif next_log in ["Stan konta", "stan konta"]:
+                            elif next_log == "1":
                                 os.system("cls")
                                 account_balance = Wallet()
                                 account_balance.check_account(self.current_login_username)
 
-                            elif next_log in ["Graj", "graj"]:
+                            elif next_log == "3":
                                 os.system("cls")
                                 while True:
-                                    next_gry = input("Black Jack\nRuletka\nBaccarat\nCofnij\n")
+                                    next_gry = input("1.Black Jack\n2.Ruletka\n3.Baccarat\n4.Cofnij\n")
                                     os.system("cls")
 
-                                    if next_gry in ["Black Jack","black jack"]:
+                                    if next_gry == "1":
                                         game = BlackJack(self.current_login_username)
                                         game.main()
                                         os.system("cls")
 
-                                    elif next_gry in ["Ruletka", "ruletka"]:
+                                    elif next_gry =="2":
                                         game = Ruletka(self.current_login_username)
                                         game.main()
                                         os.system("cls")
 
-                                    elif next_gry in ["Baccarat", "baccarat"]:
+                                    elif next_gry == "3":
                                         game = Baccarat(self.current_login_username)
                                         game.baccarat_main()
                                         os.system("cls")
 
-                                    elif next_gry in ["Cofnij", "cofnij"]:
+                                    elif next_gry == "4":
                                         os.system("cls")
                                         break
 
-                elif what_next in ["Rejstracja", "rejstracja"]:
+                elif what_next == "2":
                     sign = SignIn()
                     username = input("Podaj nazwe uzytkownika: ")
                     password = self.check_password()
@@ -88,7 +88,7 @@ class Menu:
                     os.system("cls")
                     break
 
-                elif what_next in ["Najwieksze wygrane", "najwieksze wygrane"]:
+                elif what_next == "3":
                     best = BestScores()
                     try:
                         best.show_the_results()
