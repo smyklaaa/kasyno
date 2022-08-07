@@ -4,6 +4,7 @@ from log_in import LogIn
 from wallet import Wallet
 from Baccarat import Baccarat
 from Ruletka import Ruletka
+from best_scores import BestScores
 import os
 
 class Menu:
@@ -86,9 +87,10 @@ class Menu:
                     os.system("cls")
                     break
 
-
                 elif what_next in ["Najwieksze wygrane", "najwieksze wygrane"]:
-                    print("20 najlepszych wynikow")
+                    best = BestScores()
+                    best.show_the_results()
+                    break
 
     def check_password(self):
         """ metoda pobiera haslo od uzytkownika i sprawdza czy nie wystopil blad przy wpisywaniu,po czym je zwraca"""

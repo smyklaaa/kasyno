@@ -51,3 +51,30 @@ class DataBase:
                             ''', updated_data)
         self.connection.commit()
 
+    def list_of_best_scores(self):
+        """metoda zwracajaca liste najlepszych wynikow """
+
+        self.cursor.execute(''' SELECT result,username
+                                FROM best_scores
+                                ORDER BY result DESC''')
+        users_data = self.cursor.fetchall()
+        return users_data
+
+    def add_score_to_best(self, sign_data):
+        """metoda dodajaca wynik do tabeli najlepszych wynikow """
+
+        self.cursor.execute(''' INSERT INTO best_scores
+                                VALUES(?,?)''', sign_data)
+        self.connection.commit()
+
+    def remove_score_from_best(self):
+        """metoda usuwajaca najgorszy wynik z tabeli najlepszych wynikow """
+
+        self.cursor.execute(f''' DELETE FROM best_scores
+                                WHERE result NOT IN
+                                (
+                                SELECT result FROM best_scores
+                                ORDER BY result DESC LIMIT 20
+                                )
+                                ''')
+        self.connection.commit()

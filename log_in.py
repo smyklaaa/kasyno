@@ -1,4 +1,3 @@
-import sqlite3
 from connection_data_base import DataBase
 from os import getenv
 

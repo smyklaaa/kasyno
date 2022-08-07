@@ -1,6 +1,7 @@
 from wallet import Wallet
 from connection_data_base import DataBase
 from os import getenv
+from best_scores import BestScores
 import random
 
 
@@ -105,6 +106,8 @@ class BlackJack:
         elif result == 2:
             bet *= self.bet_multiplier
             self.account_balance += bet
+            best_score = BestScores()
+            best_score.add_score(self.current_username, bet)
             print(f"Black Jack! Wygrałeś!\nTwój stan konta wynosi: {self.account_balance}")
 
         elif result == -1:
@@ -114,6 +117,8 @@ class BlackJack:
         elif result == 1:
             bet *= self.bet_multiplier
             self.account_balance += bet
+            best_score = BestScores()
+            best_score.add_score(self.current_username, bet)
             print(f"Wygrałeś!\nTwój stan konta wynosi: {self.account_balance}")
 
     def croupier_hit(self, cards):

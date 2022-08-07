@@ -2,6 +2,7 @@ import random
 from wallet import Wallet
 from os import getenv
 from connection_data_base import DataBase
+from best_scores import BestScores
 
 
 class Ruletka:
@@ -100,6 +101,8 @@ class Ruletka:
             print(f"Wylosowana liczaba: {number}")
             if number in self.red:
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -109,6 +112,8 @@ class Ruletka:
             print(f"Wylosowana liczaba: {number}")
             if number in self.black:
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -118,6 +123,8 @@ class Ruletka:
             print(f"Wylosowana liczaba: {number}")
             if number in self.even_numbers:
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -127,6 +134,8 @@ class Ruletka:
             print(f"Wylosowana liczaba: {number}")
             if number in self.odd_numbers:
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -137,6 +146,8 @@ class Ruletka:
             if number in self.first_column:
                 bet *= 2
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -147,6 +158,8 @@ class Ruletka:
             if number in self.second_column:
                 bet *= 2
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -157,6 +170,8 @@ class Ruletka:
             if number in self.third_column:
                 bet *= 2
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -167,6 +182,8 @@ class Ruletka:
             if number in self.first_dozen:
                 bet *= 2
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -177,6 +194,8 @@ class Ruletka:
             if number in self.second_dozen:
                 bet *= 2
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -187,6 +206,8 @@ class Ruletka:
             if number in self.third_dozen:
                 bet *= 2
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -196,6 +217,8 @@ class Ruletka:
             print(f"Wylosowana liczaba: {number}")
             if number in self.first_half:
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -205,6 +228,8 @@ class Ruletka:
             print(f"Wylosowana liczaba: {number}")
             if number in self.second_half:
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet
@@ -217,6 +242,8 @@ class Ruletka:
             if int(user_number) == number:
                 bet *= 35
                 self.account_balance += bet
+                best_score = BestScores()
+                best_score.add_score(self.current_username, bet)
                 print(f"Wygrałes! Twoj stan konta wynosi {self.account_balance}")
             else:
                 self.account_balance -= bet

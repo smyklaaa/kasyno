@@ -1,6 +1,7 @@
 from Black_Jack import BlackJack
 from os import getenv
 from connection_data_base import DataBase
+from best_scores import BestScores
 
 class Baccarat(BlackJack):
     """klasa tworzaca rozgrywke w pokerowa gra baccarat"""
@@ -141,6 +142,8 @@ class Baccarat(BlackJack):
 
         elif result == 1:
             self.account_balance += bet
+            best_score = BestScores()
+            best_score.add_score(self.current_username, bet)
             print(f"Wygrałeś!\nTwój stan konta wynosi: {self.account_balance}")
 
 
