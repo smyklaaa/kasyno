@@ -6,6 +6,7 @@ from Baccarat import Baccarat
 from Ruletka import Ruletka
 from best_scores import BestScores
 import os
+import sqlite3
 
 class Menu:
     """Klasa wyswietlajaca i pozwalajaca zarzadzac menu aplikacji"""
@@ -89,7 +90,10 @@ class Menu:
 
                 elif what_next in ["Najwieksze wygrane", "najwieksze wygrane"]:
                     best = BestScores()
-                    best.show_the_results()
+                    try:
+                        best.show_the_results()
+                    except sqlite3.OperationalError:
+                        print("Niestety nie ma jeszcze żadnych wyników")
                     break
 
     def check_password(self):

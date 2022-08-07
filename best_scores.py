@@ -20,11 +20,9 @@ class BestScores:
     def add_score(self, username, result):
         """metoda dodajaca wynik do tabeli najlepszych wynikow"""
 
-        print("test")
         self.db.create_table('''CREATE TABLE IF NOT EXISTS best_scores 
-        (result INT,
-        username TEXT 
-        
+        (username TEXT,
+        result INT
         )
         ''')
 
